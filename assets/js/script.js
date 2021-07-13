@@ -1,10 +1,10 @@
 // Create and display trips //
 
 const addFileBtn = document.querySelector(".uploader__input");
+const tripPanel = document.querySelector(".panel__excursions");
 
 const getContent = function (readerEvent) {
   const rawContent = readerEvent.target.result.split(/[\r\n]+/gm);
-  const tripPanel = document.querySelector(".panel__excursions");
   const content = rawContent.map((col) =>
     col.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g)
   );
@@ -28,6 +28,8 @@ const readFile = function (e) {
     alert("wybierz plik tekstowy");
   }
 };
+
+// Create trip element //
 
 const markup = function (title, description, adultPrice, childPrice) {
   return `
@@ -54,7 +56,7 @@ const markup = function (title, description, adultPrice, childPrice) {
             <div class="excursions__field excursions__field--submit">
               <input
                 class="excursions__field-input excursions__field-input--submit"
-                value="dodaj do zamówinia"
+                value="dodaj do zamówienia"
                 type="submit"
               />
             </div>
@@ -63,4 +65,92 @@ const markup = function (title, description, adultPrice, childPrice) {
     `;
 };
 
+// Listen for submit and get trip data //
+
+const basket = [];
+
+const getTitle = function (currentSubmit) {
+  return (title =
+    currentSubmit.parentElement.firstElementChild.firstElementChild.innerText);
+};
+
+const getAdultData = function (currentSubmit) {
+  const adultField = currentSubmit.firstElementChild.firstElementChild;
+  const adultPrice = adultField.firstElementChild.innerText.slice(1, -1);
+  const adultQt = adultField.lastElementChild.value;
+  return [adultPrice, adultQt];
+};
+
+const getChildData = function (currentSubmit) {
+  const childField =
+    currentSubmit.firstElementChild.nextElementSibling.firstElementChild;
+  const childPrice = childField.firstElementChild.innerText.slice(1, -1);
+  const childQt = childField.lastElementChild.value;
+  return [childPrice, childQt];
+};
+
+// Clear inputs in trip elements //
+
+const clearInput = function (input) {
+  input.value = "";
+};
+
+const clearInputs = function (currentSubmit) {
+  const adultField =
+    currentSubmit.firstElementChild.firstElementChild.lastElementChild;
+  clearInput(adultField);
+  const childField =
+    currentSubmit.firstElementChild.nextElementSibling.firstElementChild
+      .lastElementChild;
+  clearInput(childField);
+};
+
+// Display basket: trip //
+
+const displayTripData = function (trip) {
+  return `
+  <li class="summary__item">
+            <h3 class="summary__title">
+              <span class="summary__name">${trip.title}</span>
+              <strong class="summary__total-price">${trip.total}PLN</strong>
+              <a href="" class="summary__btn-remove" title="usuń">X</a>
+            </h3>
+            <p class="summary__prices">dorośli: ${trip.adultNumber} x ${trip.adultPrice}PLN, dzieci: ${trip.childNumber} x ${trip.childPrice}PLN</p>
+          </li>
+  `;
+};
+
+const createTrip = function (title, adult, child) {
+  return (trip = {
+    title: title.slice(1, -1),
+    adultNumber: +adult[1],
+    adultPrice: +adult[0],
+    childNumber: +child[1],
+    childPrice: +child[0],
+    total: +adult[1] * +adult[0] + +child[1] * +child[0],
+  });
+};
+
+const displayTotalPrice = function (trip) {
+  const span = document.querySelector(".order__total-price-value");
+  span.innerText = trip.total;
+};
+
+// Event listeners //
+
 addFileBtn.addEventListener("change", readFile);
+
+tripPanel.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const currentSubmit = e.target;
+  const title = getTitle(currentSubmit);
+  const adult = getAdultData(currentSubmit);
+  const child = getChildData(currentSubmit);
+  const trip = createTrip(title, adult, child);
+  basket.push(trip);
+  clearInputs(currentSubmit);
+  const panel = document.querySelector(".panel__summary");
+  const markup = displayTripData(trip);
+  panel.insertAdjacentHTML("afterbegin", markup);
+  displayTotalPrice(trip);
+});
