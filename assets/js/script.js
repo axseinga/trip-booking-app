@@ -113,7 +113,7 @@ const displayTripData = function (trip) {
             <h3 class="summary__title">
               <span class="summary__name">${trip.title}</span>
               <strong class="summary__total-price">${trip.total}PLN</strong>
-              <a href="" class="summary__btn-remove" title="usuń">X</a>
+              <a href="#" class="summary__btn-remove" title="usuń">X</a>
             </h3>
             <p class="summary__prices">dorośli: ${trip.adultNumber} x ${trip.adultPrice}PLN, dzieci: ${trip.childNumber} x ${trip.childPrice}PLN</p>
           </li>
@@ -131,9 +131,13 @@ const createTrip = function (title, adult, child) {
   });
 };
 
+let totalPrice = 0;
+
 const displayTotalPrice = function (trip) {
   const span = document.querySelector(".order__total-price-value");
-  span.innerText = trip.total;
+  let newTotalPrice = totalPrice + trip.total;
+  span.innerText = newTotalPrice;
+  totalPrice = newTotalPrice;
 };
 
 // Event listeners //
@@ -153,4 +157,52 @@ tripPanel.addEventListener("submit", function (e) {
   const markup = displayTripData(trip);
   panel.insertAdjacentHTML("afterbegin", markup);
   displayTotalPrice(trip);
+});
+
+const panelSummary = document.querySelector(".panel__summary");
+
+const deleteItemfromBasket = function (e) {
+  const title = e.target.parentElement.firstElementChild.innerText;
+  const price = Number(
+    e.target.parentElement.firstElementChild.nextElementSibling.innerText.slice(
+      0,
+      -3
+    )
+  );
+  const index = basket.findIndex(function (item, i) {
+    if (item.title === title && item.total === price) {
+      return i;
+    }
+  });
+  basket.splice(index, 1);
+};
+
+const deleteItemfromDisplay = function (item) {
+  const h3 = item.parentElement;
+  const li = h3.parentElement;
+  const ul = li.parentElement;
+  ul.removeChild(li);
+};
+
+const udpateTotal = function (e) {
+  const parent =
+    e.target.parentElement.parentElement.parentElement.parentElement
+      .firstElementChild.nextElementSibling.firstElementChild.firstElementChild;
+  const price = Number(
+    e.target.parentElement.firstElementChild.nextElementSibling.innerText.slice(
+      0,
+      -3
+    )
+  );
+  totalPrice = totalPrice - price;
+  parent.innerText = totalPrice;
+};
+
+panelSummary.addEventListener("click", function (e) {
+  const btn = e.target;
+  if (btn.tagName === "A") {
+    udpateTotal(e);
+    deleteItemfromBasket(e);
+    deleteItemfromDisplay(btn);
+  }
 });
