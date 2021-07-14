@@ -26,11 +26,19 @@ ul {
   display: flex;
   margin: 0 auto;
   max-width: 1200px;
+  max-height: 100vh;
   padding: 30px 0;
+  align-items: flex-start;
+  overflow: scroll;
+}
+
+.panel__form {
+  max-height: 50%;
 }
 
 .panel__excursions {
   width: 70%;
+  max-height: min-content;
 }
 
 .excursions {
@@ -43,7 +51,9 @@ ul {
   border-radius: 5px;
   margin: 10px;
   padding: 20px;
-  width: calc(50% - 20px);
+  width: 400px;
+  max-height: max-content;
+  /*width: calc(50% - 20px);*/
 
   background-color: rgba(247, 249, 251, 0.5);
   box-shadow: 2px 11px 15px 7px rgba(0, 0, 0, 0.11);
