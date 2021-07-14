@@ -4,6 +4,20 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(143, 193, 227, 0.6),
+      rgba(143, 193, 227, 0.6)
+    ),
+    url(../../image.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Photo by v2osk: "https://unsplash.com/@v2osk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"  */
+  font-family: "Noto Sans", sans-serif;
+}
+
 ul {
   list-style: none;
 }
@@ -30,10 +44,19 @@ ul {
   margin: 10px;
   padding: 20px;
   width: calc(50% - 20px);
+
+  background-color: rgba(247, 249, 251, 0.5);
+  box-shadow: 2px 11px 15px 7px rgba(0, 0, 0, 0.11);
+}
+
+.excursions__description {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .panel__form {
-  background-color: #f4f4f4;
+  background-color: rgba(247, 249, 251, 0.7);
+  box-shadow: 2px 11px 15px 7px rgba(0, 0, 0, 0.11);
   padding: 20px;
   width: 30%;
 }
@@ -43,4 +66,35 @@ ul {
   border-bottom: 1px solid #bbb;
   margin-bottom: 20px;
   padding-bottom: 20px;
+}
+
+.summary__item {
+  border: 2px solid rgba(143, 193, 227, 1);
+  padding: 1rem;
+  margin-bottom: 5px;
+}
+
+.summary__btn-remove {
+  align-self: flex-end;
+}
+
+.summary__btn-remove {
+  margin-left: 20px;
+  border: 1px solid black;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.btn {
+  height: 30px;
+  width: 150px;
+  margin: 1rem;
+  border-radius: 8px;
+  background-color: rgba(143, 193, 227, 1);
+  transition: all 1s ease-in;
+}
+
+.btn:hover,
+.btn:active {
+  background-color: rgba(247, 249, 251, 1);
 }

@@ -61,7 +61,7 @@ const markup = function (title, description, adultPrice, childPrice) {
             </div>
             <div class="excursions__field excursions__field--submit">
               <input
-                class="excursions__field-input excursions__field-input--submit"
+                class="btn excursions__field-input excursions__field-input--submit"
                 value="dodaj do zamówienia"
                 type="submit"
               />
