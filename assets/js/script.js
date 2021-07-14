@@ -136,7 +136,7 @@ let totalPrice = 0;
 const displayTotalPrice = function (trip) {
   const span = document.querySelector(".order__total-price-value");
   let newTotalPrice = totalPrice + trip.total;
-  span.innerText = newTotalPrice;
+  span.innerText = `${newTotalPrice} PLN`;
   totalPrice = newTotalPrice;
 };
 
@@ -206,3 +206,64 @@ panelSummary.addEventListener("click", function (e) {
     deleteItemfromDisplay(btn);
   }
 });
+
+const order = document.querySelector(".order");
+
+const validateString = function (input, arr) {
+  const regex = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  const value = input.value;
+  const label = input.parentElement;
+  if (!value) {
+    input.placeholder = "Wpisz imie";
+    label.style.color = "red";
+    arr.push("error");
+  } else if (!value.match(regex)) {
+    label.style.color = "red";
+    arr.push("error");
+  } else {
+    label.style.color = "black";
+  }
+};
+
+const validateEmail = function (input, arr) {
+  const regex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const value = input.value;
+  const label = input.parentElement;
+  if (!value) {
+    input.placeholder = "Wpisz email";
+    label.style.color = "red";
+    arr.push("error");
+  } else if (!value.match(regex)) {
+    label.style.color = "red";
+    arr.push("error");
+  } else {
+    label.style.color = "black";
+  }
+};
+
+const createOrderedMsg = function (e, email) {
+  console.log(e.target);
+  const finalPrice = e.target.firstElementChild.firstElementChild.innerText;
+  const emailAddres = email.value;
+  alert(
+    `Dziękujęmy za złożenie zamówienia o wartości ${finalPrice}. Wszelkie szczegóły zamówienia zostały wysłane na adres email: ${emailAddres}.`
+  );
+};
+
+const orderTrips = function (e) {
+  const errors = [];
+  const name = e.target.elements.name;
+  validateString(name, errors);
+  const email = e.target.elements.email;
+  validateEmail(email, errors);
+  console.log(email);
+  if (errors.length > 0) {
+    e.preventDefault();
+    console.log("Blednie wypelniony formularz");
+  } else {
+    createOrderedMsg(e, email);
+  }
+};
+
+order.addEventListener("submit", orderTrips);
