@@ -2,6 +2,12 @@
 
 const addFileBtn = document.querySelector(".uploader__input");
 const tripPanel = document.querySelector(".panel__excursions");
+const panelSummary = document.querySelector(".panel__summary");
+const order = document.querySelector(".order");
+let totalPrice = 0;
+const basket = [];
+
+// Upload file, convert data and display trips //
 
 const getContent = function (readerEvent) {
   const rawContent = readerEvent.target.result.split(/[\r\n]+/gm);
@@ -65,9 +71,7 @@ const markup = function (title, description, adultPrice, childPrice) {
     `;
 };
 
-// Listen for submit and get trip data //
-
-const basket = [];
+// Get trip data //
 
 const getTitle = function (currentSubmit) {
   return (title =
@@ -105,7 +109,7 @@ const clearInputs = function (currentSubmit) {
   clearInput(childField);
 };
 
-// Display basket: trip //
+// Display basket & basket functionality //
 
 const displayTripData = function (trip) {
   return `
@@ -131,35 +135,12 @@ const createTrip = function (title, adult, child) {
   });
 };
 
-let totalPrice = 0;
-
 const displayTotalPrice = function (trip) {
   const span = document.querySelector(".order__total-price-value");
   let newTotalPrice = totalPrice + trip.total;
   span.innerText = `${newTotalPrice} PLN`;
   totalPrice = newTotalPrice;
 };
-
-// Event listeners //
-
-addFileBtn.addEventListener("change", readFile);
-
-tripPanel.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const currentSubmit = e.target;
-  const title = getTitle(currentSubmit);
-  const adult = getAdultData(currentSubmit);
-  const child = getChildData(currentSubmit);
-  const trip = createTrip(title, adult, child);
-  basket.push(trip);
-  clearInputs(currentSubmit);
-  const panel = document.querySelector(".panel__summary");
-  const markup = displayTripData(trip);
-  panel.insertAdjacentHTML("afterbegin", markup);
-  displayTotalPrice(trip);
-});
-
-const panelSummary = document.querySelector(".panel__summary");
 
 const deleteItemfromBasket = function (e) {
   const title = e.target.parentElement.firstElementChild.innerText;
@@ -198,16 +179,7 @@ const udpateTotal = function (e) {
   parent.innerText = totalPrice;
 };
 
-panelSummary.addEventListener("click", function (e) {
-  const btn = e.target;
-  if (btn.tagName === "A") {
-    udpateTotal(e);
-    deleteItemfromBasket(e);
-    deleteItemfromDisplay(btn);
-  }
-});
-
-const order = document.querySelector(".order");
+// Sent form & validate data //
 
 const validateString = function (input, arr) {
   const regex = /^[a-zA-Z]+ [a-zA-Z]+$/;
@@ -243,7 +215,6 @@ const validateEmail = function (input, arr) {
 };
 
 const createOrderedMsg = function (e, email) {
-  console.log(e.target);
   const finalPrice = e.target.firstElementChild.firstElementChild.innerText;
   const emailAddres = email.value;
   alert(
@@ -257,13 +228,40 @@ const orderTrips = function (e) {
   validateString(name, errors);
   const email = e.target.elements.email;
   validateEmail(email, errors);
-  console.log(email);
   if (errors.length > 0) {
     e.preventDefault();
-    console.log("Blednie wypelniony formularz");
+    console.log("Bledy w formularzu");
   } else {
     createOrderedMsg(e, email);
   }
 };
+
+// Event listeners //
+
+addFileBtn.addEventListener("change", readFile);
+
+tripPanel.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const currentSubmit = e.target;
+  const title = getTitle(currentSubmit);
+  const adult = getAdultData(currentSubmit);
+  const child = getChildData(currentSubmit);
+  const trip = createTrip(title, adult, child);
+  basket.push(trip);
+  clearInputs(currentSubmit);
+  const panel = document.querySelector(".panel__summary");
+  const markup = displayTripData(trip);
+  panel.insertAdjacentHTML("afterbegin", markup);
+  displayTotalPrice(trip);
+});
+
+panelSummary.addEventListener("click", function (e) {
+  const btn = e.target;
+  if (btn.tagName === "A") {
+    udpateTotal(e);
+    deleteItemfromBasket(e);
+    deleteItemfromDisplay(btn);
+  }
+});
 
 order.addEventListener("submit", orderTrips);
