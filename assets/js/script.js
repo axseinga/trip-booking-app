@@ -247,12 +247,15 @@ tripPanel.addEventListener("submit", function (e) {
   const adult = getAdultData(currentSubmit);
   const child = getChildData(currentSubmit);
   const trip = createTrip(title, adult, child);
-  basket.push(trip);
-  clearInputs(currentSubmit);
-  const panel = document.querySelector(".panel__summary");
-  const markup = displayTripData(trip);
-  panel.insertAdjacentHTML("afterbegin", markup);
-  displayTotalPrice(trip);
+  console.log(adult[1], child[1]);
+  if (adult[1] !== "" && child[1] !== "") {
+    basket.push(trip);
+    clearInputs(currentSubmit);
+    const panel = document.querySelector(".panel__summary");
+    const markup = displayTripData(trip);
+    panel.insertAdjacentHTML("afterbegin", markup);
+    displayTotalPrice(trip);
+  }
 });
 
 panelSummary.addEventListener("click", function (e) {
