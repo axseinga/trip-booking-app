@@ -1,120 +1,111 @@
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+# devmentor.pl - HTML and CSS RWD: project based on design from [Colorlib.](https://colorlib.com/)
 
-&nbsp;
+## Table of contents
 
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-# JavaScript: Formularze
+## Overview
 
-Zdobyliśmy zlecenie, które zostało porzucone przez poprzedniego programistę, a polega na składaniu zamówienia na wycieczki, które są importowane z pliku CSV.
+To check how everything works please upload an example.csv file from my repository into the website.
 
-Mamy cześć kodu HTML i CSS napisanego. Naszym zadaniem będzie utworzenie logiki i prezentacji. 
+### The challengels
 
-To oznacza, że tym razem nie tylko działamy w JavaScript, ale będziemy musieli ostylować wg. własnego uznania poszczególne elementy, aby lepiej się prezentowanły.
+The goal of this task was to complete the project for a hypothetical client that was left in the middle by another soft developer. At the starting point, I had a HTML structure and very basic CSS styling.
 
-## Wymagania Klienta
+Features to create:
 
-Klient oczekuje, że użytkownik strony będzie mógł załadować sobie za pomoca formularza (`.uploader__input`) [plik CSV](https://pl.wikipedia.org/wiki/CSV_(format_pliku)), na podstawie które zostaną do strony dodane wycieczki.
+- User has to be able to upload CSV file with trips details,
+- trips details have to be converted to be displayed to User,
+- after loading trips, User can choose any trip by adding a number of adults and children to the order and by clicking the button "dodaj do zamówienia" ("add to order"),
+- after adding the trip to the order, the trips are added to the basket and the total is displayed to the User,
+- User can add as many trips as he/she wants to the basket or remove them by clicking on " X ",
+- User can order trips by filling out the full name and e-mail address and clicking the button "zamawiam" ("order").
+- enable the option of adding the empty trip to the basket (my idea),
 
-We wspomianym pliku mamy w każdym wierszu przedstawione dane na temat jednej wycieczki. Wartości są rozdzielone przeciankami są nimi kolejno: *id*, *nazwa*, *opis*, *cena za dorosłego* oraz *cena za dziecko*.
+- add a little bit of styling to make the website looks more user-friendly.
 
-Po załadowaniu wycieczek. Użytkownik może wybrać dowolną wycieczkę poprzez wprowadzenie liczby osób dorosłych i dzieci oraz kliknięcie przycisku "dodaj do zamówienia".
+### Screenshot
 
-Po kliknięciu na przycisk (`.excursions__field-input--submit`) w podsumowaniu (`.summary`) pojawia się kolejny element na liscie, który zawiera wybrane elmenty. Jednocześnie cena za całość (`.order__total-price-value`) ulega zmianie.
+![](./assets/screenshot.png)
 
-Każda zamówienona wycieczka może zostać usunięta z listy klikając w odpowiedni element tj. `.summary__btn-remove`.
+### Links
 
-Po wybraniu przez użytkownika odpowiednich wycieczek może on złożyć zamówienie wypełniając formularz zamówiania tj. `.order`.
+- Solution URL: [See my code]()
+- Live Site URL: [Check it out here]()
 
-Przed wysłanie formularza musimy sprawdzić czy pola zostały prawidłowo wypełnione tj. *Imię i nazwisko nie możę być puste*, natomiast *adres email musi być prawidłowy* (np. zawierać znak małpy tj *@)*.
+## My process
 
-Jeśli dane są nie poprawne to należy utworzyć w kodzie HTML stosowne miejsce i tam dodawać odpowiednie komunikaty.
+### Built with
 
-Gdy wszystko przebiegło prawidłowo należy wykorzystać `alert()` w celu wyświetlenia komunikatu: 
+- Semantic HTML5 markup
+- CSS custom properties
+- Vanilla JS
+- desktop only version
 
-> Dziękujęmy za złożenie zamówienia o wartości 199PLN. Wszelkie szczegóły zamówienia zostały wysłane na adres email: adres@wpisanywformularzu.pl.
+### What I learned
 
-Natomiast formularz jak również lista wybranych wycieczek zostaje wyczyszczona. 
+This project was a final task for the javascript forms section. By coding it I learned what CSV file is and how to add it to the website using `FileReader()` object. One of the difficult parts was to convert data from file to lines and columns, actually, columns were harder part. To do it I had to use a match method and regex. I wanted to separate every sentence by commas but to ignore commas inside the double-quotes. That was a long search and read for me to find a matching regex as before I used it only to validate data, not splitting it.
 
-## Implementacja
-
-Zawsze rozwiązując jakiś problem czy wykonując realizację powinniśmy podzielić je na miejscze cześci.
-
-Tutaj ewidentnie można podzielić zadanie na kilka części
-
-* ładowanie wycieczek
-* dodawanie wycieczek do listy zamówionych
-* obsługa formularza
-
-Każdy z tych elementów powinniśmy wykonać jak wcześniejsze zostało wykonane prawidłowo (działa).
-
-Poszczególne elementy tj. np. "ładowanie wycieczek" też możemy podzielić na miejsce cześci. Zawsze powinnośmy się zastanowić jakie jest kolejne (najbliższe) działanie, które jest niezbędne do osiągnięcia celu.
-
-Mając "ładowanie wycieczek" powinniśmy zrealizować po koleji:
-* obsługa wybrania pliku przez użytkownika
-* pobranie jego zawartości
-* podział zawartości na wiersze
-* podział wiersza na poszczególne elementy (id, nazwa itp.)
-* utworzenie odpowiednich elementów HTML i wypełnienie danymi
-* dodanie ich do drzewa DOM
-
-W ten sposób powinniśmy działać z pozostałymi zadaniami.
-
-### CSV
-
-Przyjrzyjmy się na chwilę [plikowi CSV](./example.csv), który może się prezentować w ten sposób:
-
-```
-"1","Ogrodzieniec","Zamek Ogrodzieniec – ruiny zamku leżącego na Jurze Krakowsko-Częstochowskiej, wybudowanego w systemie tzw. Orlich Gniazd, we wsi Podzamcze w województwie śląskim, w powiecie zawierciańskim, około 2 km na wschód od Ogrodzieńca. Zamek został wybudowany w XIV – XV w. przez ród Włodków Sulimczyków.","99","50"
-"2","Ojców","wieś w województwie małopolskim, w powiecie krakowskim, w gminie Skała, na terenie Wyżyny Krakowsko-Częstochowskiej, w Dolinie Prądnika, na Szlaku Orlich Gniazd. W Królestwie Polskim istniała gmina Ojców. W latach 1975–1998 miejscowość położona była w województwie krakowskim. W latach 1928–1966 Ojców miał status uzdrowiska posiadającego charakter użyteczności publicznej.","40","15"
+```const content = rawContent.map((col) =>
+    col.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g)
+  );
 ```
 
-Jeśli te dane mielibyśmy zapisane w zmiennej `const text` to zamienienie tego ciagu znaków na tablicę, w której każdy element to wiersz mogłoby wyglądać w ten sposób:
+After converting the details I had to get all data separated into variables which I achieved by using forEach loop and deconstruction. To create a markup, instead of cloning NodeElement and filling it with data I decided to create a full HTML markup inside JS file. I learned this approach some time ago from the JS course I took.
 
-```
-const lines = text.split(/[\r\n]+/gm);
-```
+With this project, I had to plan all the functionality and decided what steps should I take to make it work. The very first time I decided to refactor my code into smaller functions along the way instead of doing it in the end and I was very pleased with the process of coding as this approach made it much easier and cleaner.
 
-W zależności od systemu operacyjnego znak nowej lini to `\n`, `\r` lub `\r\n` dlatego używamy wyrażenie ragularnego w celu podzielenie tekstu na wiersze.
+I had a chance to sharpen my skills in moving around in a DOM tree and selecting elements that were created dynamically by JS and could not be selected another way.
 
-Podział na "kolumny" będzie troszkę trudniejszy ponieważ podział względem przecinka nie zadziała nam zbyt dobrze ponieważ ten znak może się też znajdować w treści opisu.
-
-Ten problem zostawiam już Tobie do rozwiązania ;)
-
-### Zdarzenia
-
-Zuważ, że wycieczki są tworzone dynamicznie przez wybranie odpowedniego pliku. To powoduje, że w momencie załadowania drzewa DOM nie możemy ich wyszukać i tym bardziej utworzyć nasłuchiwania.
-
-Jednak od czego jest propagacja? Może warto zrobić nasłuchiwanie na elemencie, który istnieje w drzewie DOM (`.excursions`) i sprawdzać co wywołuje dane zdarzenie (`e.target` lub `e.currentTarget`).
-
-### Koszyk
-
-Przechowywanie wybranych wycieczek to pewna forma koszyka jak w sklepie internetowym. Mamy przedmiot oraz jego ceną i ilość (x2 bo dla dorosłych i dzieci).
-
-Może po prostu warto utworzyć sobie zmienną `const basket = []` i tam `push`-ować obiekt z odpowiednimi danymi tj.
-
-```
-{
-    title: 'Ogrodzieniec',
-    adultNumber: 1,
-    adultPrice: 99,
-    childNumber: 2,
-    childPrice: 50,
-}
+```const adultField = currentSubmit.firstElementChild.firstElementChild;
+  const adultPrice = adultField.firstElementChild.innerText.slice(1, -1);
 ```
 
-### Prototypy
+To figure out what element is clicked by User and which trip should be added to the basket I had to use event delegation (which means listening for the event on the parent element and figuring out which element was clicked). I used the same method to find out what trip should be deleted from the basket as well.
 
-Zauważ, że w kodzie wystąpują prototypy (`.*--prototype`) są one używane tylko po to, aby ułatwić prezentację danych. Możesz je modyfikować jeśli uważasz, że to Ci pomoże w tworzeniu logiki (np. dataset).
+In the end, I would like to share the code which I am proud of as it took me longer than other parts to figure out. The problem was finding out what element User wants to delete (to search the basket (array)) and to delete only this element. I decided to use `findIndex()` method with two conditions and then the splice method.
 
-Docelowo mają być one niewidoczne - możesz je ukryć przy pomocy CSS (`display: none`). Natomiast może warto je wykorzystać do skopiowania struktury kodu HTML, aby nie musieć tego robić w kodzie JS.
+```const deleteItemfromBasket = function (e) {
+  const title = e.target.parentElement.firstElementChild.innerText;
+  const price = Number(
+    e.target.parentElement.firstElementChild.nextElementSibling.innerText.slice(
+      0,
+      -3
+    )
+  );
+  const index = basket.findIndex(function (item, i) {
+    if (item.title === title && item.total === price) {
+      return i;
+    }
+  });
+  basket.splice(index, 1);
+};
+```
 
+I had a lot of fun coding this task and loved coding in plain javascript.
 
+### Useful resources
 
-&nbsp;
+- [Regex101.com](https://regex101.com/) - Genius website to test regex expressions.
+- [Stackoverflow: Regex](https://stackoverflow.com/questions/11456850/split-a-string-by-commas-but-ignore-commas-within-double-quotes-using-javascript) - This thread helped me to split CSV file into columns exactly how I needed plus I learned a lot thanks to its users explanations.
+- [MDN Web Docs](https://developer.mozilla.org/en-US/) - This is really the best place to go when the method doesn't work as expected.
+- [50 Gorgeous Color Schemes From Award-Winning Websites](https://visme.co/blog/website-color-schemes/) - This article is great to get some inspirations in color matching. To create simple CSS styling I used nr 30 Close to Nature.
 
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+## Author
 
+- Github - [Axseinga](https://github.com/axseinga)
+- Frontend Mentor - [@Axseinga](https://www.frontendmentor.io/profile/axseinga)
+- LinkedIn - [@Agnieszka Urbanowicz](https://www.linkedin.com/in/agnieszka-urbanowicz-051147151/)
+
+## Acknowledgments
+
+Thanks to my [Mentor - devmentor.pl](https://devmentor.pl/) - for providing me with this task and for code review.

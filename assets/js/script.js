@@ -23,7 +23,7 @@ const getContent = function (readerEvent) {
 
 const readFile = function (e) {
   const file = e.target.files[0];
-  if (file && file.type.includes("text")) {
+  if (file && file.type.includes("text/csv")) {
     const reader = new FileReader();
     reader.onload = function (readerEvent) {
       getContent(readerEvent);
