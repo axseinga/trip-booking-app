@@ -19,7 +19,7 @@ To check how everything works please upload an example.csv file from my reposito
 
 ### The challenges
 
-The goal of this task was to complete the project for a hypothetical client that was left in the middle by another soft developer. At the starting point, I had a HTML structure and very basic CSS styling.
+The goal of this task was to complete the project for a hypothetical client that was left in the middle by another software developer. At the starting point, I had a HTML structure and very basic CSS styling.
 
 Features to create:
 
@@ -61,7 +61,7 @@ This project was a final task for the javascript forms section. By coding it I l
   );
 ```
 
-After converting the details I had to get all data separated into variables which I achieved by using forEach loop and deconstruction. To create a markup, instead of cloning NodeElement and filling it with data I decided to create a full HTML markup inside JS file. I learned this approach some time ago from the JS course I took.
+After converting the details I had to get all data separated into variables which I achieved by using forEach loop and destructuring. To create a markup, instead of cloning NodeElement and filling it with data I decided to create a full HTML markup inside JS file. I learned this approach some time ago from the JS course I took.
 
 With this project, I had to plan all the functionality and decided what steps should I take to make it work. The very first time I decided to refactor my code into smaller functions along the way instead of doing it in the end and I was very pleased with the process of coding as this approach made it much easier and cleaner.
 
